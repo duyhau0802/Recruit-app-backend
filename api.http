@@ -1,0 +1,19 @@
+GET http://localhost:8800/api/v1/auth/registerajskajs
+
+###
+POST http://localhost:8800/api/v1/auth/register
+Content-Type: application/json
+
+{
+    "email" : "admin2@gmail.com",
+    "password": "1234567"
+}
+
+###
+POST http://localhost:8800/api/v1/auth/login
+Content-Type: application/json
+
+{
+    "email" : "admin2@gmail.com",
+    "password": "1234567"
+}
