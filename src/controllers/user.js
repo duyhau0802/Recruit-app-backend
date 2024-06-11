@@ -1,8 +1,12 @@
-import { createUser } from "../../models/usersModel.js";
+import * as services from "../services";
+import { internalServerError } from "../middlewares/handle_errors";
 
-export async function getUsers(req, res) {
-  const { username, email, password } = req.body;
-  const user = await createUser({ username, email, password });
-  res.status(201).send(user);
-}
-// copy from old file, can delete any time
+export const getCurrent = async (req, res) => {
+  try {
+    const { id } = req.user;
+    const response = await services.getOne(id);
+    return res.status(200).json(response);
+  } catch (error) {
+    return internalServerError(res);
+  }
+};
