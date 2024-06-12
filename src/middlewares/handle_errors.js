@@ -18,6 +18,13 @@ export const internalServerError = (res) => {
   });
 };
 
+export const printError = (res, error) => {
+  return res.status(error.status).json({
+    err: 1,
+    mes: error,
+  });
+};
+
 //404
 export const notFound = (req, res) => {
   const error = createError.NotFound("This route is not define");

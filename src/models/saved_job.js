@@ -11,12 +11,12 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Save_job.belongsTo(models.Applicant, {
         foreignKey: "id_ung_vien",
-        targetKey: "id_ung_vien",
+        targetKey: "id",
         as: "ungVienData",
       });
       Save_job.belongsTo(models.Job, {
         foreignKey: "id_tin",
-        targetKey: "id_tin",
+        targetKey: "id",
         as: "jobData",
       });
     }
@@ -30,6 +30,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: "Save_job",
+      updatedAt: false,
     }
   );
   return Save_job;

@@ -19,6 +19,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: "Job_field",
+      timestamps: false,
     }
   );
   return Job_field;

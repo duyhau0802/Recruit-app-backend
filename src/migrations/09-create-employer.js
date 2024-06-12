@@ -2,8 +2,8 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("Applicants", {
-      id_ung_vien: {
+    await queryInterface.createTable("Employers", {
+      id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
@@ -19,55 +19,36 @@ module.exports = {
         onUpdate: "RESTRICT",
         onDelete: "CASCADE",
       },
-      gioi_tinh: {
+      ten_cong_ty: {
         type: Sequelize.STRING,
       },
-      ngay_sinh: {
-        type: Sequelize.DATE,
-      },
-      dia_chi: {
+      address_cong_ty: {
         type: Sequelize.STRING,
       },
       province_code: {
         type: Sequelize.STRING,
       },
-      sdt: {
+      quy_mo_cong_ty: {
         type: Sequelize.STRING,
       },
-      bang_cap_code: {
-        type: Sequelize.STRING,
-      },
-      kinh_nghiem: {
+      mo_ta_cong_ty: {
         type: Sequelize.TEXT,
       },
-      ky_nang: {
+      job_fields_code: {
         type: Sequelize.STRING,
       },
-      desire_job_field: {
+      website: {
         type: Sequelize.STRING,
       },
-      desire_province: {
+      sdt_cong_ty: {
         type: Sequelize.STRING,
       },
-      desire_job_type: {
+      logo_cong_ty: {
         type: Sequelize.STRING,
-      },
-      desire_salary: {
-        type: Sequelize.STRING,
-      },
-      createdAt: {
-        allowNull: false,
-        type: "TIMESTAMP",
-        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
-      },
-      updatedAt: {
-        allowNull: false,
-        type: "TIMESTAMP",
-        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
       },
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("Applicants");
+    await queryInterface.dropTable("Employers");
   },
 };

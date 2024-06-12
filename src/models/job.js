@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
         as: "jobTypeData",
       });
       Job.belongsTo(models.Job_field, {
-        foreignKey: "linh_vuc_hoat_dong",
+        foreignKey: "job_field_code",
         targetKey: "code",
         as: "jobFieldData",
       });
@@ -36,28 +36,28 @@ module.exports = (sequelize, DataTypes) => {
       });
       Job.belongsTo(models.Employer, {
         foreignKey: "id_employer",
-        targetKey: "id_employer",
+        targetKey: "id",
         as: "employerData",
       });
     }
   }
   Job.init(
     {
-      vi_tri: DataTypes.SRING,
-      so_luong: DataTypes.INTERGER,
-      chuc_vu: DataTypes.SRING,
-      job_type_code: DataTypes.SRING,
-      salary_code: DataTypes.SRING,
-      province_cong_viec: DataTypes.SRING,
-      address_cong_viec: DataTypes.SRING,
-      job_field_code: DataTypes.SRING,
-      mo_ta: DataTypes.SRING,
-      quyen_loi: DataTypes.SRING,
-      degree_code: DataTypes.SRING,
+      vi_tri: DataTypes.STRING,
+      so_luong: DataTypes.INTEGER,
+      chuc_vu: DataTypes.STRING,
+      job_type_code: DataTypes.STRING,
+      salary_code: DataTypes.STRING,
+      province_cong_viec: DataTypes.STRING,
+      address_cong_viec: DataTypes.STRING,
+      job_field_code: DataTypes.STRING,
+      mo_ta: DataTypes.STRING,
+      quyen_loi: DataTypes.STRING,
+      // yeu cau cong viec
+      degree_code: DataTypes.STRING,
       yeu_cau_cong_viec: DataTypes.TEXT,
       yeu_cau_ho_so: DataTypes.TEXT,
       deadline: DataTypes.DATE,
-      ngay_dang: DataTypes.DATE,
       id_employer: DataTypes.INTEGER,
       view_count: DataTypes.INTEGER,
     },

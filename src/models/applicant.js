@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
       Applicant.belongsTo(models.Province, {
         foreignKey: "province_code",
         targetKey: "code",
-        as: "provinceData",
+        as: "currentProvinceData",
       });
       Applicant.belongsTo(models.User, {
         foreignKey: "user_id",
@@ -27,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
       Applicant.belongsTo(models.Province, {
         foreignKey: "desire_province",
         targetKey: "code",
-        as: "provinceData",
+        as: "desiredProvinceData",
       });
       Applicant.belongsTo(models.Job_type, {
         foreignKey: "desire_job_type",
@@ -43,11 +43,11 @@ module.exports = (sequelize, DataTypes) => {
   }
   Applicant.init(
     {
-      user_id: DataTypes.INTERGER,
+      user_id: DataTypes.INTEGER,
       // Ung vien detail
       gioi_tinh: DataTypes.STRING,
       ngay_sinh: DataTypes.DATE,
-      dia_chi: DataTypes.SRING,
+      dia_chi: DataTypes.STRING,
       province_code: DataTypes.STRING,
       sdt: DataTypes.STRING,
 
@@ -64,6 +64,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: "Applicant",
+      timestamps: false,
     }
   );
   return Applicant;

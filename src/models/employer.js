@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
         as: "userData",
       });
       Employer.belongsTo(models.Job_field, {
-        foreignKey: "linh_vuc_hoat_dong",
+        foreignKey: "job_fields_code",
         targetKey: "code",
         as: "jobFieldData",
       });
@@ -28,20 +28,22 @@ module.exports = (sequelize, DataTypes) => {
   }
   Employer.init(
     {
-      user_id: DataTypes.INTERGER,
+      user_id: DataTypes.INTEGER,
       // Ung vien detail
       ten_cong_ty: DataTypes.STRING,
       address_cong_ty: DataTypes.STRING,
-      province_code: DataTypes.SRING,
+      province_code: DataTypes.STRING,
       quy_mo_cong_ty: DataTypes.STRING,
       mo_ta_cong_ty: DataTypes.TEXT,
-      linh_vuc_hoat_dong: DataTypes.STRING,
+      job_fields_code: DataTypes.STRING,
       website: DataTypes.STRING,
-      sdt: DataTypes.STRING,
+      sdt_cong_ty: DataTypes.STRING,
+      logo_cong_ty: DataTypes.STRING,
     },
     {
       sequelize,
       modelName: "Employer",
+      timestamps: false,
     }
   );
   return Employer;

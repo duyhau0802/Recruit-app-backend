@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Resume.belongsTo(models.Applicant, {
         foreignKey: "id_ung_vien",
-        targetKey: "id_ung_vien",
+        targetKey: "id",
         as: "ungVienData",
       });
     }
@@ -24,6 +24,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: "Resume",
+      timestamps: false,
     }
   );
   return Resume;

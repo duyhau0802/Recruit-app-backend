@@ -2,7 +2,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("Saved_jobs", {
+    await queryInterface.createTable("Applications", {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -14,7 +14,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: {
           model: "Applicants",
-          key: "id_ung_vien",
+          key: "id",
         },
         onUpdate: "RESTRICT",
         onDelete: "CASCADE",
@@ -24,10 +24,25 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: {
           model: "Jobs",
-          key: "id_tin",
+          key: "id",
         },
         onUpdate: "RESTRICT",
         onDelete: "CASCADE",
+      },
+      id_employer: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: {
+          model: "Employers",
+          key: "id",
+        },
+        onUpdate: "RESTRICT",
+        onDelete: "CASCADE",
+      },
+      status: {
+        allowNull: false,
+        type: Sequelize.STRING,
+        defaultValue: "pending",
       },
       createdAt: {
         allowNull: false,
@@ -37,6 +52,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("Saved_jobs");
+    await queryInterface.dropTable("Applications");
   },
 };

@@ -3,7 +3,7 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable("Jobs", {
-      id_tin: {
+      id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
@@ -54,10 +54,6 @@ module.exports = {
       deadline: {
         type: Sequelize.DATE,
       },
-      ngay_dang: {
-        type: Sequelize.DATE,
-        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
-      },
       id_employer: {
         allowNull: false,
         type: Sequelize.INTEGER,
@@ -65,6 +61,16 @@ module.exports = {
       view_count: {
         type: Sequelize.INTEGER,
         defaultValue: 0,
+      },
+      createdAt: {
+        allowNull: false,
+        type: "TIMESTAMP",
+        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
+      },
+      updatedAt: {
+        allowNull: false,
+        type: "TIMESTAMP",
+        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
       },
     });
   },

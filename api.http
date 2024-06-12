@@ -18,6 +18,18 @@ Content-Type: application/json
     "password": "1234567"
 }
 
-###
+### authorazation with jwt
 GET http://localhost:8800/api/v1/user/
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIsImVtYWlsIjoiYWRtaW4xQGdtYWlsLmNvbSIsInJvbGVfY29kZSI6IlIxIiwiaWF0IjoxNzE4MDE0MTYyLCJleHAiOjE3MTg0NDYxNjJ9.HJbB7sZPVcQEzd2n0G1LjQGG3qUQ-iCHmJjchPehrec
+
+### get job
+GET http://localhost:8800/api/v1/job/
+
+### get job by name
+GET http://localhost:8800/api/v1/job/?job_type_code=ON
+
+### get job by order and 
+GET http://localhost:8800/api/v1/job/?order[]=id&order[]=DESC&limit=2&page=2
+
+### get degree
+GET http://localhost:8800/api/v1/degree/

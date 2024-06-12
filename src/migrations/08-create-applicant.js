@@ -2,8 +2,8 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("Employers", {
-      id_employer: {
+    await queryInterface.createTable("Applicants", {
+      id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
@@ -19,36 +19,45 @@ module.exports = {
         onUpdate: "RESTRICT",
         onDelete: "CASCADE",
       },
-      ten_cong_ty: {
+      gioi_tinh: {
         type: Sequelize.STRING,
       },
-      address_cong_ty: {
+      ngay_sinh: {
+        type: Sequelize.DATE,
+      },
+      dia_chi: {
         type: Sequelize.STRING,
       },
       province_code: {
         type: Sequelize.STRING,
       },
-      quy_mo_cong_ty: {
+      sdt: {
         type: Sequelize.STRING,
       },
-      mo_ta_cong_ty: {
+      bang_cap_code: {
+        type: Sequelize.STRING,
+      },
+      kinh_nghiem: {
         type: Sequelize.TEXT,
       },
-      linh_vuc_hoat_dong: {
+      ky_nang: {
         type: Sequelize.STRING,
       },
-      website: {
+      desire_job_field: {
         type: Sequelize.STRING,
       },
-      sdt_cong_ty: {
+      desire_province: {
         type: Sequelize.STRING,
       },
-      logo_cong_ty: {
+      desire_job_type: {
+        type: Sequelize.STRING,
+      },
+      desire_salary: {
         type: Sequelize.STRING,
       },
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("Employers");
+    await queryInterface.dropTable("Applicants");
   },
 };
