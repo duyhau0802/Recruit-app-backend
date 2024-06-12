@@ -1,0 +1,22 @@
+sql query - 12/6
+
+insert user
+
+INSERT INTO users (username, email, password, role_code) VALUES ("hau1", "1@gmail.com","12345678", "R1"), ("hau2", "2@gmail.com","12345678", "R2"), ("hau3", "3@gmail.com","12345678", "R3");
+
+INSERT INTO job_fields (code, value) VALUES ("IT", "Information Technology"), ('MKT','Marketing'),("SALES", "Sales"), ('FIN','Finance');
+
+INSERT INTO provinces (code, value) VALUES ('HN', 'Hà Nội'), ('HCM','Hồ Chí Minh'),("DN", "Đà Nẵng"), ('QT','Quảng Trị');
+
+INSERT INTO job_types (code, value) VALUES ('FT', 'Toàn thời gian'), ('PT','Bán thời gian'),("ON", "Online");
+
+INSERT INTO salaries (code, value) VALUES ('TL', 'Thương lượng'), ('1-3','1 - 3 triệu'),('3-5', '3 - 5 triệu '), ('5-10','5 - 10 triệu'),('10-15', '10 - 15 triệu ');
+
+
+INSERT INTO `employers`(`user_id`,`ten_cong_ty`,`address_cong_ty`) VALUES ('2', 'Sao Mai Ltd.', '88 Nguyen Hue Street, Da Nang City, Danang Province, Vietnam');
+
+
+INSERT INTO `jobs`( `vi_tri`,  `job_type_code`, `salary_code`, `province_cong_viec`, `job_field_code`, `id_employer`) VALUES ('Kỹ sư phần mềm ','ON','1-3','DN','IT','1'), 
+('Chuyên viên marketing','ON','1-3','DN','MKT','1'), 
+('Nhân viên bán hàng','ON','1-3','DN','SALES','1'), 
+('Giám đốc marketing','ON','1-3','DN','MKT','1');

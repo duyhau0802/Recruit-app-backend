@@ -2,29 +2,34 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("Roles", {
+    await queryInterface.createTable("Saved_jobs", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      code: {
-        type: Sequelize.STRING,
+      id_ung_vien: {
         allowNull: false,
-        unique: true,
+        type: Sequelize.INTEGER,
+        references: {
+          model: "Applicants",
+          key: "id_ung_vien",
+        },
+        onUpdate: "RESTRICT",
+        onDelete: "CASCADE",
       },
-      value: {
-        type: Sequelize.STRING,
+      id_tin: {
         allowNull: false,
-        unique: true,
+        type: Sequelize.INTEGER,
+        references: {
+          model: "Jobs",
+          key: "id_tin",
+        },
+        onUpdate: "RESTRICT",
+        onDelete: "CASCADE",
       },
       createdAt: {
-        allowNull: false,
-        type: "TIMESTAMP",
-        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
-      },
-      updatedAt: {
         allowNull: false,
         type: "TIMESTAMP",
         defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
@@ -32,6 +37,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("Roles");
+    await queryInterface.dropTable("Saved_jobs");
   },
 };
