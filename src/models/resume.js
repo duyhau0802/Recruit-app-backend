@@ -18,8 +18,9 @@ module.exports = (sequelize, DataTypes) => {
   }
   Resume.init(
     {
-      Resume_link: DataTypes.STRING,
-      ung_vien_id: DataTypes.STRING,
+      cv_link: DataTypes.STRING,
+      file_name: DataTypes.STRING,
+      id_ung_vien: DataTypes.STRING,
     },
     {
       sequelize,

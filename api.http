@@ -28,6 +28,9 @@ GET http://localhost:8800/api/v1/job/
 ### get job by name
 GET http://localhost:8800/api/v1/job/?job_type_code=ON
 
+### get job by name
+GET http://localhost:8800/api/v1/job/?name=Ky su
+
 ### get job by order and 
 GET http://localhost:8800/api/v1/job/?order[]=id&order[]=DESC&limit=2&page=2
 

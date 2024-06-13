@@ -25,6 +25,11 @@ module.exports = {
         onUpdate: "RESTRICT",
         onDelete: "CASCADE",
       },
+      file_name: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        unique: true,
+      },
     });
   },
   async down(queryInterface, Sequelize) {

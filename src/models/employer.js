@@ -39,6 +39,7 @@ module.exports = (sequelize, DataTypes) => {
       website: DataTypes.STRING,
       sdt_cong_ty: DataTypes.STRING,
       logo_cong_ty: DataTypes.STRING,
+      file_name: DataTypes.STRING,
     },
     {
       sequelize,

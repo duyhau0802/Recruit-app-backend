@@ -46,6 +46,9 @@ module.exports = {
       logo_cong_ty: {
         type: Sequelize.STRING,
       },
+      file_name: {
+        type: Sequelize.STRING,
+      },
     });
   },
   async down(queryInterface, Sequelize) {

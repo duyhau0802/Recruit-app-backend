@@ -10,11 +10,12 @@ export const badRequest = (err, res) => {
 };
 
 // 500
-export const internalServerError = (res) => {
+export const internalServerError = (error_obj, res) => {
   const error = createError.InternalServerError();
   return res.status(error.status).json({
     err: 1,
     mes: error.message,
+    error_obj: error_obj,
   });
 };
 
