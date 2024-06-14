@@ -7,7 +7,13 @@ export const getOne = (userId) =>
         where: { id: userId },
         // ko lay password
         attributes: {
-          exclude: ["password", "createdAt", "updatedAt", "role_code"],
+          exclude: [
+            "password",
+            "createdAt",
+            "updatedAt",
+            "role_code",
+            "refresh_token",
+          ],
         },
         // lay role tu bang role (phai co khoa ngaoi)
         include: [

@@ -32,3 +32,5 @@ export const id = joi.number().required();
 export const ids = joi.array().required();
 
 export const file_name = joi.array().required();
+
+export const refresh_token = joi.string().required();

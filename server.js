@@ -22,7 +22,7 @@ app.use(cookieParser());
 app.use(
   session({
     key: "userId",
-    secret: process.env.ACCESS_TOKKEN_SECRET,
+    secret: process.env.ACCESS_TOKEN_SECRET,
     resave: false,
     saveUninitialized: true,
     cookie: {
