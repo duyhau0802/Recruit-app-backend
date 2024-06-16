@@ -6,51 +6,70 @@ const hashPass = (password) => {
   return bcrypt.hashSync(password, 8);
 };
 
-export const register = ({ email, password }) =>
+export const register = ({ username, email, password }) =>
   new Promise(async (resolve, reject) => {
+    const existingUserByEmail = await db.User.findOne({
+      where: { email: email },
+    });
+    const existingUserByUsername = await db.User.findOne({
+      where: { username: username },
+    });
     try {
-      const response = await db.User.findOrCreate({
-        where: { email: email },
-        defaults: {
-          email: email,
-          password: hashPass(password),
-        },
-      });
-      const accessToken = response[1]
-        ? jwt.sign(
-            {
-              id: response[0].id,
-              email: response[0].email,
-              role_code: response[0].role_code,
-            },
-            process.env.ACCESS_TOKEN_SECRET,
-            { expiresIn: "600s" }
-          )
-        : null;
+      if (existingUserByEmail) {
+        resolve({
+          err: 1,
+          mes: "Email already exists!",
+        });
+      } else if (existingUserByUsername) {
+        resolve({
+          err: 1,
+          mes: "Username already exists!",
+        });
+      } else {
+        const response = await db.User.findOrCreate({
+          where: { email: email },
+          defaults: {
+            email: email,
+            password: hashPass(password),
+            username: username,
+          },
+        });
+        const accessToken = response[1]
+          ? jwt.sign(
+              {
+                id: response[0].id,
+                email: response[0].email,
+                role_code: response[0].role_code,
+              },
+              process.env.ACCESS_TOKEN_SECRET,
+              { expiresIn: "600s" }
+            )
+          : null;
 
-      const refreshToken = response[1]
-        ? jwt.sign(
-            {
-              id: response[0].id,
-            },
-            process.env.REFRESH_TOKEN_SECRET,
-            { expiresIn: "10d" }
-          )
-        : null;
+        const refreshToken = response[1]
+          ? jwt.sign(
+              {
+                id: response[0].id,
+              },
+              process.env.REFRESH_TOKEN_SECRET,
+              { expiresIn: "10d" }
+            )
+          : null;
 
-      resolve({
-        err: response[1] ? 0 : 1,
-        mes: response[1] ? "Register successfully" : "Email already exists",
-        access_token: accessToken ? `Bearer ${accessToken}` : null,
-        refresh_token: refreshToken ? `${refreshToken}` : null,
-      });
-      if (refreshToken) {
-        await db.User.update(
-          { refresh_token: refreshToken },
-          {
-            where: { id: response[0].id },
-          }
-        );
+        resolve({
+          err: response[1] ? 0 : 1,
+          mes: response[1] ? "Register successfully" : "Email already exists",
+          access_token: accessToken ? `Bearer ${accessToken}` : null,
+          refresh_token: refreshToken ? `${refreshToken}` : null,
+        });
+        if (refreshToken) {
+          await db.User.update(
+            { refresh_token: refreshToken },
+            {
+              where: { id: response[0].id },
+            }
+          );
+        }
       }
     } catch (error) {
       reject(error);
@@ -60,12 +79,12 @@ export const register = ({ email, password }) =>
 export const login = ({ email, password }) =>
   new Promise(async (resolve, reject) => {
     try {
-      const response = await db.User.findOne({
-        where: { email: email },
-        raw: true,
-      });
+      console.log(email, password);
+      const response = await db.User.findOne({ where: { email } });
+      console.log(response);
       const isChecked =
         response && bcrypt.compareSync(password, response.password);
+      console.log(isChecked);
       const accessToken = isChecked
         ? jwt.sign(
             {
@@ -93,6 +112,7 @@ export const login = ({ email, password }) =>
           : response
           ? "Password is wrong"
           : "Email is not registered",
+        username: response.username,
         access_token: accessToken ? `Bearer ${accessToken}` : null,
         refresh_token: refreshToken ? `${refreshToken}` : null,
       });

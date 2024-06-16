@@ -1,11 +1,11 @@
 import db from "../models";
 
-export const createDegree = (body) =>
+export const createJob_field = (body) =>
   new Promise(async (resolve, reject) => {
-    const existingCode = await db.Degree.findOne({
+    const existingCode = await db.Job_field.findOne({
       where: { code: body?.code },
     });
-    const existingValue = await db.Degree.findOne({
+    const existingValue = await db.Job_field.findOne({
       where: { value: body?.value },
     });
     try {
@@ -20,7 +20,7 @@ export const createDegree = (body) =>
           mes: "Value already exists!",
         });
       } else {
-        const response = db.Degree.create(body);
+        const response = db.Job_field.create(body);
         resolve({
           err: response ? 0 : 1,
           mes: response ? "Created" : "Err",
@@ -31,27 +31,27 @@ export const createDegree = (body) =>
     }
   });
 
-export const getAllDegree = async () => {
+export const getAllJob_field = async () => {
   try {
-    const response = await db.Degree.findAll();
+    const response = await db.Job_field.findAll();
     return response;
   } catch (error) {
     return error;
   }
 };
 
-export const getDegreeById = async (id) => {
+export const getJob_fieldById = async (id) => {
   try {
-    const response = await db.Degree.findOne({ where: { id } });
+    const response = await db.Job_field.findOne({ where: { id } });
     return response;
   } catch (error) {
     return error;
   }
 };
 
-export const updateDegree = async (body, id) => {
+export const updateJob_field = async (body, id) => {
   try {
-    const response = await db.Degree.update(body, {
+    const response = await db.Job_field.update(body, {
       where: { id: id },
     });
     return response;
@@ -60,9 +60,9 @@ export const updateDegree = async (body, id) => {
   }
 };
 
-export const deleteDegree = async (id) => {
+export const deleteJob_field = async (id) => {
   try {
-    const response = await db.Degree.destroy({
+    const response = await db.Job_field.destroy({
       where: { id: id },
     });
     return response;

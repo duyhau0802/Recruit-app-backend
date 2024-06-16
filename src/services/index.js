@@ -3,3 +3,7 @@ export * from "./user";
 export * from "./job";
 export * from "./degree";
 export * from "./resume";
+export * from "./job_field";
+export * from "./job_type";
+export * from "./province";
+export * from "./salary";

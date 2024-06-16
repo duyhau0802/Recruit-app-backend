@@ -3,3 +3,7 @@ export * from "./user.js";
 export * from "./job.js";
 export * from "./degree.js";
 export * from "./resume.js";
+export * from "./job_field.js";
+export * from "./job_type.js";
+export * from "./province.js";
+export * from "./salary.js";

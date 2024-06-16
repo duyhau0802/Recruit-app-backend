@@ -1,11 +1,11 @@
 import db from "../models";
 
-export const createDegree = (body) =>
+export const createSalary = (body) =>
   new Promise(async (resolve, reject) => {
-    const existingCode = await db.Degree.findOne({
+    const existingCode = await db.Salary.findOne({
       where: { code: body?.code },
     });
-    const existingValue = await db.Degree.findOne({
+    const existingValue = await db.Salary.findOne({
       where: { value: body?.value },
     });
     try {
@@ -20,7 +20,7 @@ export const createDegree = (body) =>
           mes: "Value already exists!",
         });
       } else {
-        const response = db.Degree.create(body);
+        const response = db.Salary.create(body);
         resolve({
           err: response ? 0 : 1,
           mes: response ? "Created" : "Err",
@@ -31,28 +31,28 @@ export const createDegree = (body) =>
     }
   });
 
-export const getAllDegree = async () => {
+export const getAllSalary = async () => {
   try {
-    const response = await db.Degree.findAll();
+    const response = await db.Salary.findAll();
     return response;
   } catch (error) {
     return error;
   }
 };
 
-export const getDegreeById = async (id) => {
+export const getSalaryById = async (id) => {
   try {
-    const response = await db.Degree.findOne({ where: { id } });
+    const response = await db.Salary.findOne({ where: { id } });
     return response;
   } catch (error) {
     return error;
   }
 };
 
-export const updateDegree = async (body, id) => {
+export const updateSalary = async (body) => {
   try {
-    const response = await db.Degree.update(body, {
-      where: { id: id },
+    const response = await db.Salary.update(body, {
+      where: { id: body.id },
     });
     return response;
   } catch (error) {
@@ -60,10 +60,10 @@ export const updateDegree = async (body, id) => {
   }
 };
 
-export const deleteDegree = async (id) => {
+export const deleteSalary = async (body) => {
   try {
-    const response = await db.Degree.destroy({
-      where: { id: id },
+    const response = await db.Salary.destroy({
+      where: { id: body.id },
     });
     return response;
   } catch (error) {

@@ -1,28 +1,28 @@
 import * as services from "../services";
 import { query } from "express";
 
-export const getAllDegree = async (req, res) => {
+export const getAllJob_field = async (req, res) => {
   try {
-    const response = await services.getAllDegree();
+    const response = await services.getAllJob_field();
     return res.status(200).json(response);
   } catch (error) {
     return res.status(500).json(error);
   }
 };
 
-export const getDegreeById = async (req, res) => {
+export const getJob_fieldById = async (req, res) => {
   try {
     const id = req.params.id;
-    const response = await services.getDegreeById(id);
+    const response = await services.getJob_fieldById(id);
     return res.status(200).json(response);
   } catch (error) {
     return res.status(500).json(error);
   }
 };
 
-export const createDegree = async (req, res) => {
+export const createJob_field = async (req, res) => {
   try {
-    const response = await services.createDegree(req.body);
+    const response = await services.createJob_field(req.body);
     return res.status(200).json(response);
   } catch (error) {
     console.log(error);
@@ -30,10 +30,10 @@ export const createDegree = async (req, res) => {
   }
 };
 
-export const updateDegree = async (req, res) => {
+export const updateJob_field = async (req, res) => {
   try {
     let id = req.params.id;
-    const response = await services.updateDegree(req.body, id);
+    const response = await services.updateJob_field(req.body, id);
     return res.status(200).json(response);
   } catch (error) {
     return res.status(500).json(error);
@@ -41,10 +41,10 @@ export const updateDegree = async (req, res) => {
 };
 
 // 5. delete by id
-export const deleteDegree = async (req, res) => {
+export const deleteJob_field = async (req, res) => {
   try {
     let id = req.params.id;
-    const response = await services.deleteDegree(id);
+    const response = await services.deleteJob_field(id);
     return res.status(200).json(response);
   } catch (error) {
     return res.status(500).json(error);

@@ -56,12 +56,6 @@ export const updateResume = ({ id, ...body }, fileData) =>
       if (fileData) {
         body.cv_link = fileData?.path;
         body.file_name = fileData?.filename;
-        ///////
-        // const row = await db.Resume.findByPk(id);
-        // const file_name = row.file_name;
-        // console.log(file_name);
-        // cloudinary.uploader.destroy(file_name);
-        // Delete the existing file from Cloudinary before updating
       }
       const response = await db.Resume.update(body, { where: { id: id } });
       resolve({

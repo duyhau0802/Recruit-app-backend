@@ -34,3 +34,5 @@ export const ids = joi.array().required();
 export const file_name = joi.array().required();
 
 export const refresh_token = joi.string().required();
+
+export const username = joi.string().required();
