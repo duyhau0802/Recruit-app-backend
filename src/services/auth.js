@@ -1,6 +1,7 @@
 import db from "../models";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import sendEmail from "../utils/sendEmail";
 
 const hashPass = (password) => {
   return bcrypt.hashSync(password, 8);
@@ -177,5 +178,59 @@ export const refreshToken = (refresh_token) =>
       }
     } catch (error) {
       reject(error);
+    }
+  });
+
+export const resetPassword = (email) =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const user = await db.User.findOne({ where: { email } });
+      if (!user) {
+        resolve({
+          err: 1,
+          mes: "Email is not registered",
+        });
+      }
+      let token = jwt.sign({ id: user.id }, process.env.REFRESH_TOKEN_SECRET, {
+        expiresIn: "10m",
+      });
+      const link = `${process.env.CLIENT_URL}/auth/password-reset/${token}`;
+      resolve({
+        err: 0,
+        mes: "password reset link sent to your email account",
+      });
+      await sendEmail(user.email, "Reset Password", link);
+    } catch (error) {
+      reject(error);
+    }
+  });
+
+export const resetUserPassword = async (password, token) =>
+  new Promise(async (resolve, reject) => {
+    try {
+      // Verify the token with error handling
+      const decoded = await jwt.verify(token, process.env.REFRESH_TOKEN_SECRET);
+      const userId = decoded?.id;
+
+      // Check for missing user ID in decoded token
+      if (!userId) {
+        return resolve({ err: 1, mes: "Invalid token (missing user ID)" });
+      }
+
+      // Fetch the user by ID
+      const user = await db.User.findOne({ where: { id: userId } });
+      if (!user) {
+        return resolve({ err: 1, mes: "Invalid user" });
+      }
+
+      await db.User.update(
+        { password: hashPass(password) },
+        { where: { id: userId } }
+      );
+
+      resolve({ err: 0, mes: "Password reset successfully" });
+    } catch (error) {
+      console.error("Error resetting password:", error);
+      reject(error); // Re-throw the error for handling in the calling context
     }
   });

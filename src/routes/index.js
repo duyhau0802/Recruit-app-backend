@@ -10,10 +10,10 @@ import province from "./province";
 import { notFound } from "../middlewares/handle_errors";
 
 const initRoutes = (app) => {
-  app.use("/api/v1/user", user);
-  app.use("/api/v1/auth", auth);
+  app.use("/api/user", user);
+  app.use("/api/auth", auth);
   app.use("/api/job", job);
-  app.use("/api/v1/resume", resume);
+  app.use("/api/resume", resume);
 
   app.use("/api/degree", degree);
   app.use("/api/job-field", job_field);

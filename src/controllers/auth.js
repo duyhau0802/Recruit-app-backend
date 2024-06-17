@@ -38,3 +38,36 @@ export const refreshToken = async (req, res) => {
     return res.status(500).json(error);
   }
 };
+
+export const resetPassword = async (req, res) => {
+  try {
+    const schema = joi.object({
+      email: joi.string().email().required(),
+    });
+    const { error } = schema.validate(req.body);
+    if (error) return res.status(400).send(error.details[0].message, res);
+    const response = await services.resetPassword(req.body.email);
+    return res.status(200).json(response);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send(error);
+  }
+};
+
+export const resetUserPassword = async (req, res) => {
+  try {
+    const token = req.params.token;
+    const password = req.body.password;
+    const schema = joi.object({
+      password: joi.string().required(),
+    });
+    const { error } = schema.validate(req.body);
+    if (error) return res.status(400).send(error.details[0].message, res);
+
+    const response = await services.resetUserPassword(password, token);
+    return res.status(200).json(response);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send(error);
+  }
+};
