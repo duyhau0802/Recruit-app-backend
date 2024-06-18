@@ -114,6 +114,7 @@ export const login = ({ email, password }) =>
           ? "Password is wrong"
           : "Email is not registered",
         username: response.username,
+        userId: response.id,
         access_token: accessToken ? `Bearer ${accessToken}` : null,
         refresh_token: refreshToken ? `${refreshToken}` : null,
       });

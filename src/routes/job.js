@@ -7,11 +7,15 @@ const router = require("express").Router();
 // PUBLIC ROUTES
 // vi crud dung 4 method khac nhau nen ko can chi dg dan
 router.get("/", controllers.getJobs);
+router.get("/list/:employer_id", controllers.getJobByEmployerId);
+router.get("/:id", controllers.getJobById);
+router.post("/", controllers.createNewJob);
+router.put("/:id", controllers.updateJob);
+router.delete("/:id", controllers.deleteJob);
 
 // PRIVATE ROUTES
 router.use(verifyToken);
 // router.use(isAdmin);
 router.use(isEmployerOrAdmin);
-router.post("/", controllers.createNewJob);
 
 module.exports = router;

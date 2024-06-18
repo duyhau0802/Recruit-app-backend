@@ -45,7 +45,6 @@ module.exports = (sequelize, DataTypes) => {
     {
       vi_tri: DataTypes.STRING,
       so_luong: DataTypes.INTEGER,
-      chuc_vu: DataTypes.STRING,
       job_type_code: DataTypes.STRING,
       salary_code: DataTypes.STRING,
       province_cong_viec: DataTypes.STRING,
@@ -55,11 +54,13 @@ module.exports = (sequelize, DataTypes) => {
       quyen_loi: DataTypes.STRING,
       // yeu cau cong viec
       degree_code: DataTypes.STRING,
+      kinh_nghiem: DataTypes.STRING,
       yeu_cau_cong_viec: DataTypes.TEXT,
       yeu_cau_ho_so: DataTypes.TEXT,
       deadline: DataTypes.DATE,
       id_employer: DataTypes.INTEGER,
       view_count: DataTypes.INTEGER,
+      deleted: DataTypes.BOOLEAN,
     },
     {
       sequelize,

@@ -18,9 +18,6 @@ module.exports = {
         type: Sequelize.INTEGER,
         defaultValue: 1,
       },
-      chuc_vu: {
-        type: Sequelize.STRING,
-      },
       job_type_code: {
         type: Sequelize.STRING,
       },
@@ -43,6 +40,9 @@ module.exports = {
         type: Sequelize.STRING,
       },
       degree_code: {
+        type: Sequelize.STRING,
+      },
+      kinh_nghiem: {
         type: Sequelize.STRING,
       },
       yeu_cau_cong_viec: {
@@ -71,6 +71,10 @@ module.exports = {
         allowNull: false,
         type: "TIMESTAMP",
         defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
+      },
+      deleted: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false,
       },
     });
   },

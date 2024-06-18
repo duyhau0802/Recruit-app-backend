@@ -73,6 +73,28 @@ export const getJobs = ({ page, limit, order, name, ...query }) =>
       reject(error);
     }
   });
+
+export const getJobById = async (id) => {
+  try {
+    const response = await db.Job.findOne({ where: { id } });
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const getJobByEmployerId = (employerId) =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const response = await db.Job.findAll({
+        where: { id_employer: employerId },
+      });
+      resolve(response);
+    } catch (error) {
+      reject(error);
+    }
+  });
+
 // CREATE
 export const createNewJob = (body) =>
   new Promise(async (resolve, reject) => {
@@ -95,4 +117,25 @@ export const createNewJob = (body) =>
   });
 // UPDATE
 
+export const updateJob = async (body, id) => {
+  try {
+    const response = await db.Job.update(body, {
+      where: { id: id },
+    });
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
+
 // DELETE
+export const deleteJob = async (id) => {
+  try {
+    const response = await db.Job.destroy({
+      where: { id: id },
+    });
+    return response;
+  } catch (error) {
+    return error;
+  }
+};

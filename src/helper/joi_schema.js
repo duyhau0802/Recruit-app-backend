@@ -6,7 +6,6 @@ export const password = joi.string().min(6).required();
 //// table job
 export const vi_tri = joi.string().alphanum().required();
 export const so_luong = joi.number().required();
-export const chuc_vu = joi.string().alphanum().required();
 export const job_type_code = joi.string().alphanum().required();
 export const salary = joi.string().alphanum().required();
 export const province = joi.string().alphanum().required();
