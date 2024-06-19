@@ -28,9 +28,6 @@ module.exports = {
       province_code: {
         type: Sequelize.STRING,
       },
-      quy_mo_cong_ty: {
-        type: Sequelize.STRING,
-      },
       mo_ta_cong_ty: {
         type: Sequelize.TEXT,
       },

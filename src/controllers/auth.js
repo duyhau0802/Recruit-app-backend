@@ -5,22 +5,24 @@ import joi from "joi";
 
 export const register = async (req, res) => {
   try {
-    // const { error } = joi
-    //   .object({ username, email, password })
-    //   .validate(req.body);
-    // if (error) return res.json(error);
     const response = await services.register(req.body);
     return res.status(200).json(response);
   } catch (error) {
-    // return internalServerError(error, res);
+    return res.status(500).json(error);
+  }
+};
+
+export const registerEmployer = async (req, res) => {
+  try {
+    const response = await services.registerEmployer(req.body);
+    return res.status(200).json(response);
+  } catch (error) {
     return res.status(500).json(error);
   }
 };
 
 export const login = async (req, res) => {
   try {
-    // const { error } = joi.object({ email, password }).validate(req.body);
-    // if (error) return res.json(error);
     const response = await services.login(req.body);
     return res.status(200).json(response);
   } catch (error) {

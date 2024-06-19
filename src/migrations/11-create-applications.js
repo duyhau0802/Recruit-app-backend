@@ -39,6 +39,16 @@ module.exports = {
         onUpdate: "RESTRICT",
         onDelete: "CASCADE",
       },
+      id_resume: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: {
+          model: "Resumes",
+          key: "id",
+        },
+        onUpdate: "RESTRICT",
+        onDelete: "CASCADE",
+      },
       status: {
         allowNull: false,
         type: Sequelize.STRING,

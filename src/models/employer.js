@@ -33,7 +33,6 @@ module.exports = (sequelize, DataTypes) => {
       ten_cong_ty: DataTypes.STRING,
       address_cong_ty: DataTypes.STRING,
       province_code: DataTypes.STRING,
-      quy_mo_cong_ty: DataTypes.STRING,
       mo_ta_cong_ty: DataTypes.TEXT,
       job_fields_code: DataTypes.STRING,
       website: DataTypes.STRING,

@@ -8,10 +8,13 @@ const router = require("express").Router();
 // PUBLIC ROUTES
 // router.post("/", uploadCloud.single("avatar"), controllers.createNewUser);
 
+router.get("/", controllers.getAllUser);
+router.get("/:id", controllers.getUserById);
+router.put("/:id", controllers.updateUser);
+router.delete("/:id", controllers.deleteUser);
 // PRIVATE ROUTES
 router.use(verifyToken);
 router.use(isAdmin);
 // router.use(isEmployerOrAdmin);
-router.get("/", controllers.getCurrent);
 
 module.exports = router;

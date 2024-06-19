@@ -76,7 +76,40 @@ export const getJobs = ({ page, limit, order, name, ...query }) =>
 
 export const getJobById = async (id) => {
   try {
-    const response = await db.Job.findOne({ where: { id } });
+    const response = await db.Job.findOne({
+      where: { id },
+      include: [
+        {
+          model: db.Job_type,
+          attributes: ["code", "value"],
+          as: "jobTypeData",
+        },
+        {
+          model: db.Salary,
+          attributes: ["code", "value"],
+          as: "salaryData",
+        },
+        {
+          model: db.Province,
+          attributes: ["code", "value"],
+          as: "provinceData",
+        },
+        {
+          model: db.Job_field,
+          attributes: ["code", "value"],
+          as: "jobFieldData",
+        },
+        {
+          model: db.Degree,
+          attributes: ["code", "value"],
+          as: "degreeData",
+        },
+        {
+          model: db.Employer,
+          as: "employerData",
+        },
+      ],
+    });
     return response;
   } catch (error) {
     return error;

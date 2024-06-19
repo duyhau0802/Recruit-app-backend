@@ -28,10 +28,10 @@ module.exports = (sequelize, DataTypes) => {
   }
   Applications.init(
     {
-      id_ung_vien: DataTypes.STRING,
-      id_tin: DataTypes.STRING,
-      id_employer: DataTypes.STRING,
-      time_apply: DataTypes.DATE,
+      id_ung_vien: DataTypes.INTEGER,
+      id_tin: DataTypes.INTEGER,
+      id_employer: DataTypes.INTEGER,
+      id_resume: DataTypes.INTEGER,
       status: DataTypes.STRING,
     },
     {

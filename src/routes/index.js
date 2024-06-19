@@ -7,6 +7,8 @@ import job_field from "./job_field";
 import job_type from "./job_type";
 import salary from "./salary";
 import province from "./province";
+import applicant from "./applicant";
+import employer from "./employer";
 import { notFound } from "../middlewares/handle_errors";
 
 const initRoutes = (app) => {
@@ -20,6 +22,8 @@ const initRoutes = (app) => {
   app.use("/api/job-type", job_type);
   app.use("/api/province", province);
   app.use("/api/salary", salary);
+  app.use("/api/applicant", applicant);
+  app.use("/api/employer", employer);
 
   app.use(notFound);
 };
