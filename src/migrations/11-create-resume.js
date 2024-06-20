@@ -14,12 +14,12 @@ module.exports = {
         allowNull: false,
         unique: true,
       },
-      id_ung_vien: {
+      id_user: {
         type: Sequelize.INTEGER,
         allowNull: false,
         type: Sequelize.INTEGER,
         references: {
-          model: "Applicants",
+          model: "Users",
           key: "id",
         },
         onUpdate: "RESTRICT",

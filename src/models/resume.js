@@ -9,10 +9,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Resume.belongsTo(models.Applicant, {
-        foreignKey: "id_ung_vien",
+      Resume.belongsTo(models.User, {
+        foreignKey: "id_user",
         targetKey: "id",
-        as: "ungVienData",
+        as: "userData",
       });
     }
   }
@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       cv_link: DataTypes.STRING,
       file_name: DataTypes.STRING,
-      id_ung_vien: DataTypes.STRING,
+      id_user: DataTypes.STRING,
     },
     {
       sequelize,

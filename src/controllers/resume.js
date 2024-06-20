@@ -5,9 +5,9 @@ import { id, ids, file_name } from "../helper/joi_schema";
 const cloudinary = require("cloudinary").v2;
 
 // READ
-export const getResumes = async (req, res) => {
+export const getAllResumes = async (req, res) => {
   try {
-    const response = await services.getResumes(req.query);
+    const response = await services.getAllResumes(req.query);
     // neu client gui by data boy cua method post thi dung req.body
     // neu client gui len bang param thi lay bang req.query
     return res.status(200).json(response);
@@ -16,12 +16,21 @@ export const getResumes = async (req, res) => {
   }
 };
 
+export const getResumeByUserId = async (req, res) => {
+  try {
+    const response = await services.getResumeByUserId(req.params.id);
+    return res.status(200).json(response);
+  } catch (error) {
+    return res.json(error);
+  }
+};
+
 // CREATE
 export const createNewResume = async (req, res) => {
   try {
     const fileData = req.file;
     // xu li loi ko co truong Neu xay ra loi thi phai xoa file anh o tren server
-    const { error } = joi.object({ id }).validate({ id: req.body.id_ung_vien });
+    const { error } = joi.object({ id }).validate({ id: req.body.id_user });
     if (error) {
       if (fileData) cloudinary.uploader.destroy(fileData.filename);
       return badRequest(error.details[0].message, res);

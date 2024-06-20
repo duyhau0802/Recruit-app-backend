@@ -2,7 +2,7 @@ import db from "../models";
 const cloudinary = require("cloudinary").v2;
 
 // READ
-export const getResumes = ({ page, limit, order, name, ...query }) =>
+export const getAllResumes = ({ page, limit, order, name, ...query }) =>
   new Promise(async (resolve, reject) => {
     try {
       const response = await db.Resume.findAndCountAll({});
@@ -11,6 +11,19 @@ export const getResumes = ({ page, limit, order, name, ...query }) =>
         mes: response ? "Got data" : "Can not found Resume",
         ResumeData: response,
       });
+    } catch (error) {
+      reject(error);
+    }
+  });
+
+// READ
+export const getResumeByUserId = (userId) =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const response = await db.Resume.findAll({
+        where: { id_user: userId },
+      });
+      resolve(response);
     } catch (error) {
       reject(error);
     }

@@ -8,4 +8,5 @@ export * from "./job_type.js";
 export * from "./province.js";
 export * from "./salary.js";
 export * from "./applicant.js";
+export * from "./application.js";
 export * from "./employer.js";

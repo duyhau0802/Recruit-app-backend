@@ -8,4 +8,5 @@ export * from "./job_type";
 export * from "./province";
 export * from "./salary";
 export * from "./applicant";
+export * from "./application";
 export * from "./employer";
