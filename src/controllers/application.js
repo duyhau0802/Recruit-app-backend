@@ -3,8 +3,27 @@ import { query } from "express";
 
 export const getAllApplication = async (req, res) => {
   try {
-    console.log("get all application controller");
     const response = await services.getAllApplication();
+    return res.status(200).json(response);
+  } catch (error) {
+    return res.status(500).json(error);
+  }
+};
+
+export const getApplicationByApplicantId = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const response = await services.getApplicationByApplicantId(id);
+    return res.status(200).json(response);
+  } catch (error) {
+    return res.status(500).json(error);
+  }
+};
+
+export const getApplicationByEmployerId = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const response = await services.getApplicationByEmployerId(id);
     return res.status(200).json(response);
   } catch (error) {
     return res.status(500).json(error);

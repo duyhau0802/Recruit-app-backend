@@ -13,6 +13,10 @@ export const getJobs = ({ page, limit, order, name, ...query }) =>
       // const offset = 0;
       // const flimit = 10;
       // limit : so luong ban ghi tren mot trang
+
+      const startIndex = (+page - 1) * flimit;
+      const endIndex = +page * flimit;
+
       queries.offset = offset * flimit;
       queries.limit = flimit;
       if (order) queries.order = [order];
@@ -65,6 +69,10 @@ export const getJobs = ({ page, limit, order, name, ...query }) =>
         ],
       });
       resolve({
+        page: page,
+        per_page: flimit,
+        total: response.count,
+        total_pages: Math.ceil(response.count / flimit),
         err: response ? 0 : 1,
         mes: response ? "Got data" : "Can not found job",
         jobData: response,

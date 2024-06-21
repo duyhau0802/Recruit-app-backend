@@ -58,7 +58,6 @@ export const register = ({ username, email, password }) =>
               { expiresIn: "10d" }
             )
           : null;
-        console.log(response);
         const user_id = response[0].id;
         // Create an applicant
         await db.Applicant.create({
@@ -176,12 +175,9 @@ export const registerEmployer = ({
 export const login = ({ email, password }) =>
   new Promise(async (resolve, reject) => {
     try {
-      console.log(email, password);
       const response = await db.User.findOne({ where: { email } });
-      console.log(response);
       const isChecked =
         response && bcrypt.compareSync(password, response.password);
-      console.log(isChecked);
       const accessToken = isChecked
         ? jwt.sign(
             {

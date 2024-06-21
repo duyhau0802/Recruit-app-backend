@@ -65,7 +65,6 @@ export const updateResume = ({ id, ...body }, fileData) =>
       // Find the existing resume record using findByPk
       const row = await db.Resume.findByPk(id);
       const response1 = await cloudinary.uploader.destroy(row.file_name);
-      console.log(response1);
       if (fileData) {
         body.cv_link = fileData?.path;
         body.file_name = fileData?.filename;

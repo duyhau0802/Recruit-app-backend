@@ -50,3 +50,14 @@ export const deleteEmployer = async (req, res) => {
     return res.status(500).json(error);
   }
 };
+
+// getEmployerId
+export const getEmployerId = async (req, res) => {
+  try {
+    let id = req.params.id;
+    const response = await services.getEmployerId(id);
+    return res.status(200).json(response);
+  } catch (error) {
+    return res.status(500).json(error);
+  }
+};

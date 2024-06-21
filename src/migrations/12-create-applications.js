@@ -9,52 +9,57 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      // id_ung_vien: {
-      //   allowNull: false,
-      //   type: Sequelize.INTEGER,
-      //   references: {
-      //     model: "Applicants",
-      //     key: "id",
-      //   },
-      //   onUpdate: "RESTRICT",
-      //   onDelete: "CASCADE",
-      // },
+      id_ung_vien: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: {
+          model: "Applicants",
+          key: "id",
+        },
+        onUpdate: "RESTRICT",
+        onDelete: "CASCADE",
+      },
 
-      // id_tin: {
-      //   allowNull: false,
-      //   type: Sequelize.INTEGER,
-      //   references: {
-      //     model: "Jobs",
-      //     key: "id",
-      //   },
-      //   onUpdate: "RESTRICT",
-      //   onDelete: "CASCADE",
-      // },
-      // id_employer: {
-      //   allowNull: false,
-      //   type: Sequelize.INTEGER,
-      //   references: {
-      //     model: "Employers",
-      //     key: "id",
-      //   },
-      //   onUpdate: "RESTRICT",
-      //   onDelete: "CASCADE",
-      // },
+      id_tin: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: {
+          model: "Jobs",
+          key: "id",
+        },
+        onUpdate: "RESTRICT",
+        onDelete: "CASCADE",
+      },
+      id_employer: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: {
+          model: "Employers",
+          key: "id",
+        },
+        onUpdate: "RESTRICT",
+        onDelete: "CASCADE",
+      },
 
-      // id_resume: {
-      //   allowNull: false,
-      //   type: Sequelize.INTEGER,
-      //   references: {
-      //     model: "Resumes",
-      //     key: "id",
-      //   },
-      //   onUpdate: "RESTRICT",
-      //   onDelete: "CASCADE",
-      // },
-      status: {
+      id_resume: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: {
+          model: "Resumes",
+          key: "id",
+        },
+        onUpdate: "RESTRICT",
+        onDelete: "CASCADE",
+      },
+      status_code: {
         allowNull: false,
         type: Sequelize.STRING,
-        defaultValue: "pending",
+        references: {
+          model: "Statuses",
+          key: "code",
+        },
+        onUpdate: "RESTRICT",
+        onDelete: "CASCADE",
       },
       createdAt: {
         allowNull: false,

@@ -39,6 +39,11 @@ module.exports = (sequelize, DataTypes) => {
         targetKey: "code",
         as: "salaryData",
       });
+      Applicant.belongsTo(models.Degree, {
+        foreignKey: "bang_cap_code",
+        targetKey: "code",
+        as: "degreeData",
+      });
     }
   }
   Applicant.init(

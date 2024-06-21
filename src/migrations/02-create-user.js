@@ -29,7 +29,10 @@ module.exports = {
       },
       role_code: {
         type: Sequelize.STRING,
-        defaultValue: "R3",
+        references: {
+          model: "Roles",
+          key: "id",
+        },
       },
       createdAt: {
         allowNull: false,

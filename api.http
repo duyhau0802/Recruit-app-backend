@@ -32,7 +32,11 @@ GET http://localhost:8800/api/v1/job/?job_type_code=ON
 GET http://localhost:8800/api/v1/job/?name=Ky su
 
 ### get job by order and 
-GET http://localhost:8800/api/v1/job/?order[]=id&order[]=DESC&limit=2&page=2
+GET http://localhost:8800/api/job/?order[]=id&order[]=DESC&limit=2&page=2
+
+### pagination 
+GET http://localhost:8800/api/job/?page=2
+
 
 ### get degree
 GET http://localhost:8800/api/v1/degree/

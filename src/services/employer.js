@@ -72,3 +72,17 @@ export const deleteEmployer = async (id) => {
     return error;
   }
 };
+
+// getEmployerId
+
+export const getEmployerId = async (id_user) => {
+  try {
+    const response = await db.Employer.findOne({
+      where: { user_id: id_user },
+      atribute: ["id"],
+    });
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
