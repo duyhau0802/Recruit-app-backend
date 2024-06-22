@@ -86,6 +86,16 @@ export const getJobById = async (id) => {
   try {
     const response = await db.Job.findOne({
       where: { id },
+      attributes: {
+        exclude: [
+          "job_type_code",
+          "salary_code",
+          "province_cong_viec",
+          "job_field_code",
+          "degree_code",
+          "id_employer",
+        ],
+      },
       include: [
         {
           model: db.Job_type,
@@ -115,6 +125,13 @@ export const getJobById = async (id) => {
         {
           model: db.Employer,
           as: "employerData",
+          include: [
+            {
+              model: db.User,
+              as: "userData",
+              attributes: ["username"],
+            },
+          ],
         },
       ],
     });
@@ -124,11 +141,15 @@ export const getJobById = async (id) => {
   }
 };
 
-export const getJobByEmployerId = (employerId) =>
+export const getJobByUserId = (user_id) =>
   new Promise(async (resolve, reject) => {
     try {
+      const employer = await db.Employer.findOne({
+        where: { user_id: user_id },
+      });
+      const employer_id = employer.id;
       const response = await db.Job.findAll({
-        where: { id_employer: employerId },
+        where: { id_employer: employer_id },
       });
       resolve(response);
     } catch (error) {
@@ -140,10 +161,19 @@ export const getJobByEmployerId = (employerId) =>
 export const createNewJob = (body) =>
   new Promise(async (resolve, reject) => {
     try {
+      const id_user = body?.id_user;
+      const employer = await db.Employer.findOne({
+        where: { user_id: id_user },
+      });
+      const id_employer = employer?.id;
       // neu tim thay job có vi_tri giống hệt vi_tri đẫ có thì thôi >>
       const response = await db.Job.findOrCreate({
-        where: { vi_tri: body?.vi_tri, id_employer: body?.id_employer },
-        defaults: body,
+        where: { vi_tri: body?.vi_tri, id_employer: id_employer },
+        defaults: {
+          ...body, // Spread operator to include all properties from body
+          id_employer: id_employer,
+          id_user: undefined, // Explicitly set id_employer to undefined to exclude it},
+        },
       });
       resolve({
         // true neu ko tim thay va tao newJob
@@ -151,6 +181,7 @@ export const createNewJob = (body) =>
         mes: response[1]
           ? "Created"
           : "Can not create job 'cause have the same title",
+        response: response,
       });
     } catch (error) {
       reject(error);

@@ -3,8 +3,17 @@ import db from "../models";
 
 export const createApplication = (body) =>
   new Promise(async (resolve, reject) => {
+    const id_user = body?.id_user;
+    const applicant = await db.Applicant.findOne({
+      where: { user_id: id_user },
+    });
+    const id_ung_vien = applicant?.id;
+    const id_tin = body?.id_tin;
+    const id_resume = body?.id_resume;
+    const job = await db.Job.findOne({ where: { id: id_tin } });
+    const id_employer = job?.id_employer;
     const existingApply = await db.Application.findOne({
-      where: { id_ung_vien: body?.id_ung_vien, id_tin: body?.id_tin },
+      where: { id_ung_vien: id_ung_vien, id_tin: id_tin },
     });
     try {
       if (existingApply) {
@@ -13,11 +22,13 @@ export const createApplication = (body) =>
           mes: "Apply already exists!",
         });
       } else {
-        const response = db.Application.create(body);
-        resolve({
-          err: response ? 0 : 1,
-          mes: response ? "Created" : "Err",
+        const response = db.Application.create({
+          id_ung_vien,
+          id_tin,
+          id_employer,
+          id_resume,
         });
+        resolve(response);
       }
     } catch (error) {
       reject(error);
