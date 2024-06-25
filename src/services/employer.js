@@ -54,32 +54,7 @@ export const getEmployerByUserId = async (user_id) => {
 export const updateEmployer = async (body, id) => {
   try {
     const response = await db.Employer.update(body, {
-      where: { id: id },
-    });
-    return response;
-  } catch (error) {
-    return error;
-  }
-};
-
-export const deleteEmployer = async (id) => {
-  try {
-    const response = await db.Employer.destroy({
-      where: { id: id },
-    });
-    return response;
-  } catch (error) {
-    return error;
-  }
-};
-
-// getEmployerId
-
-export const getEmployerId = async (id_user) => {
-  try {
-    const response = await db.Employer.findOne({
-      where: { user_id: id_user },
-      atribute: ["id"],
+      where: { user_id: id },
     });
     return response;
   } catch (error) {

@@ -64,7 +64,7 @@ export const updateResume = ({ id, ...body }, fileData) =>
     try {
       // Find the existing resume record using findByPk
       const row = await db.Resume.findByPk(id);
-      const response1 = await cloudinary.uploader.destroy(row.file_name);
+      await cloudinary.uploader.destroy(row.file_name);
       if (fileData) {
         body.cv_link = fileData?.path;
         body.file_name = fileData?.filename;
@@ -105,7 +105,6 @@ export const deleteResume = (ids, file_name) =>
     } catch (error) {
       // xoa tren server neu case co loi
       reject(error);
-      // if (fileData) cloudinary.uploader.destroy(fileData?.filename);
     }
   });
 

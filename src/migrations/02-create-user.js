@@ -23,6 +23,7 @@ module.exports = {
       },
       avatar: {
         type: Sequelize.STRING,
+        defaultValue: "https://cdn-icons-png.flaticon.com/512/149/149071.png",
       },
       file_name: {
         type: Sequelize.STRING,

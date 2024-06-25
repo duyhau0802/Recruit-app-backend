@@ -7,6 +7,5 @@ router.post("/", controllers.createEmployer);
 router.get("/", controllers.getAllEmployer);
 router.get("/:id", controllers.getEmployerByUserId);
 router.put("/:id", controllers.updateEmployer);
-router.delete("/:id", controllers.deleteEmployer);
 
 module.exports = router;

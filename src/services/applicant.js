@@ -36,21 +36,10 @@ export const getApplicantByUserId = async (user_id) => {
   }
 };
 
-export const updateApplicant = async (body, id) => {
+export const updateApplicant = async (body, user_id) => {
   try {
     const response = await db.Applicant.update(body, {
-      where: { id: id },
-    });
-    return response;
-  } catch (error) {
-    return error;
-  }
-};
-
-export const deleteApplicant = async (id) => {
-  try {
-    const response = await db.Applicant.destroy({
-      where: { id: id },
+      where: { user_id: user_id },
     });
     return response;
   } catch (error) {

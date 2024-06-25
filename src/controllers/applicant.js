@@ -33,19 +33,8 @@ export const createApplicant = async (req, res) => {
 
 export const updateApplicant = async (req, res) => {
   try {
-    let id = req.params.id;
-    const response = await services.updateApplicant(req.body, id);
-    return res.status(200).json(response);
-  } catch (error) {
-    return res.status(500).json(error);
-  }
-};
-
-// 5. delete by id
-export const deleteApplicant = async (req, res) => {
-  try {
-    let id = req.params.id;
-    const response = await services.deleteApplicant(id);
+    let user_id = req.params.id;
+    const response = await services.updateApplicant(req.body, user_id);
     return res.status(200).json(response);
   } catch (error) {
     return res.status(500).json(error);

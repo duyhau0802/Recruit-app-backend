@@ -32,30 +32,8 @@ export const createEmployer = async (req, res) => {
 
 export const updateEmployer = async (req, res) => {
   try {
-    let id = req.params.id;
-    const response = await services.updateEmployer(req.body, id);
-    return res.status(200).json(response);
-  } catch (error) {
-    return res.status(500).json(error);
-  }
-};
-
-// 5. delete by id
-export const deleteEmployer = async (req, res) => {
-  try {
-    let id = req.params.id;
-    const response = await services.deleteEmployer(id);
-    return res.status(200).json(response);
-  } catch (error) {
-    return res.status(500).json(error);
-  }
-};
-
-// getEmployerId
-export const getEmployerId = async (req, res) => {
-  try {
-    let id = req.params.id;
-    const response = await services.getEmployerId(id);
+    let user_id = req.params.id;
+    const response = await services.updateEmployer(req.body, user_id);
     return res.status(200).json(response);
   } catch (error) {
     return res.status(500).json(error);

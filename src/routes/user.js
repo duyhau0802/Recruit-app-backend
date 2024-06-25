@@ -1,7 +1,7 @@
 import * as controllers from "../controllers";
 import verifyToken from "../middlewares/verify_token";
 import { isAdmin, isEmployerOrAdmin } from "../middlewares/verify_roles";
-// import uploadCloud from "../middlewares/uploadCloud";
+import uploadCloud from "../middlewares/uploadCloud";
 
 const router = require("express").Router();
 
@@ -10,7 +10,7 @@ const router = require("express").Router();
 
 router.get("/", controllers.getAllUser);
 router.get("/:id", controllers.getUserById);
-router.put("/:id", controllers.updateUser);
+router.put("/", uploadCloud.single("avatar"), controllers.updateUser);
 router.delete("/:id", controllers.deleteUser);
 // PRIVATE ROUTES
 router.use(verifyToken);
