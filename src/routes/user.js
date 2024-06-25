@@ -10,7 +10,8 @@ const router = require("express").Router();
 
 router.get("/", controllers.getAllUser);
 router.get("/:id", controllers.getUserById);
-router.put("/", uploadCloud.single("avatar"), controllers.updateUser);
+router.put("/", uploadCloud.single("avatar"), controllers.updateAvatar);
+router.put("/:id", controllers.updateUser);
 router.delete("/:id", controllers.deleteUser);
 // PRIVATE ROUTES
 router.use(verifyToken);

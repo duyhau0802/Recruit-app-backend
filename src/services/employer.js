@@ -1,4 +1,5 @@
 import db from "../models";
+const cloudinary = require("cloudinary").v2;
 
 export const createEmployer = (body) =>
   new Promise(async (resolve, reject) => {
@@ -61,3 +62,30 @@ export const updateEmployer = async (body, id) => {
     return error;
   }
 };
+
+export const updateLogoCongTy = async (user_id, fileData) =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const employer = await db.Employer.findOne({
+        where: { user_id: user_id },
+      });
+      const updateData = {};
+      if (fileData) {
+        const filename = employer.file_name;
+        if (filename) {
+          await cloudinary.uploader.destroy(filename);
+        }
+        updateData.logo_cong_ty = fileData?.path;
+        updateData.file_name = fileData?.filename;
+      }
+      const response = await db.Employer.update(updateData, {
+        where: { user_id: user_id },
+      });
+      resolve(response);
+      if (fileData && response[0] === 0) {
+        cloudinary.uploader.destroy(fileData?.filename);
+      }
+    } catch (error) {
+      reject(error);
+    }
+  });

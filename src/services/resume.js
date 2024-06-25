@@ -46,7 +46,7 @@ export const createNewResume = (body, fileData) =>
         // true neu ko tim thay va tao newResume
         err: response[1] ? 0 : 1,
         mes: response[1]
-          ? "Created"
+          ? "Creat a new Resume successfully"
           : "Can not create Resume because have the same cv_link",
       });
       if (fileData && !response[1]) {

@@ -286,12 +286,12 @@ export const resetPassword = (email) =>
         });
       }
       let token = jwt.sign({ id: user.id }, process.env.REFRESH_TOKEN_SECRET, {
-        expiresIn: "10m",
+        expiresIn: "20m",
       });
       const link = `${process.env.CLIENT_URL}/reset-password/${token}`;
       resolve({
         err: 0,
-        mes: "password reset link sent to your email account",
+        mes: "Password reset link sent to your email account",
       });
       await sendEmail(user.email, "Reset Password", link);
     } catch (error) {
@@ -306,25 +306,35 @@ export const resetUserPassword = async (password, token) =>
       const decoded = await jwt.verify(token, process.env.REFRESH_TOKEN_SECRET);
       const userId = decoded?.id;
 
-      // Check for missing user ID in decoded token
+      // Check for missing user ID or invalid token
       if (!userId) {
-        return resolve({ err: 1, mes: "Invalid token (missing user ID)" });
+        resolve("Invalid token (missing user ID)");
       }
 
       // Fetch the user by ID
       const user = await db.User.findOne({ where: { id: userId } });
       if (!user) {
-        return resolve({ err: 1, mes: "Invalid user" });
+        resolve("Invalid user");
       }
 
+      // Hash the new password securely
+      const hashedPassword = hashPass(password);
+
+      // Update the user's password
       await db.User.update(
-        { password: hashPass(password) },
+        { password: hashedPassword },
         { where: { id: userId } }
       );
-
-      resolve({ err: 0, mes: "Password reset successfully" });
+      resolve({ mes: "Password reset successfully" });
     } catch (error) {
-      console.error("Error resetting password:", error);
-      reject(error); // Re-throw the error for handling in the calling context
+      if (error instanceof jwt.JsonWebTokenError) {
+        reject({
+          err: "Invalid token",
+          mes: "Invalid token",
+        });
+      } else {
+        console.error("Error resetting password:", error);
+        reject(error); // Re-throw for handling in the calling context
+      }
     }
   });

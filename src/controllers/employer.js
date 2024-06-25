@@ -39,3 +39,14 @@ export const updateEmployer = async (req, res) => {
     return res.status(500).json(error);
   }
 };
+
+export const updateLogoCongTy = async (req, res) => {
+  try {
+    let user_id = req.params.id;
+    let fileData = req.file;
+    const response = await services.updateLogoCongTy( user_id, fileData);
+    return res.status(200).json(response);
+  } catch (error) {
+    return res.status(500).json(error);
+  }
+}

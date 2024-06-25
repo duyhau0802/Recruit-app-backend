@@ -31,13 +31,23 @@ export const getApplicantById = async (req, res) => {
 };
 
 // UPDATE
-export const updateUser = async (req, res) => {
+export const updateAvatar = async (req, res) => {
   try {
     let fileData = req.file;
-    const response = await services.updateUser(req.body, fileData);
-    return res.send(response);
+    const response = await services.updateAvatar(req.body, fileData);
+    return res.status(200).json(response);
   } catch (error) {
-    return res.send(error);
+    return res.status(500).json(error);
+  }
+};
+export const updateUser = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const response = await services.updateUser(req.body, id);
+    return res.json(response);
+    // return res.json({ id: id, reqb: req.body });
+  } catch (error) {
+    return res.json(error);
   }
 };
 //delete
@@ -48,6 +58,6 @@ export const deleteUser = async (req, res) => {
     const response = await services.deleteUser(id);
     return res.json(response);
   } catch (error) {
-    return res.send(error);
+    return res.json(error);
   }
 };
