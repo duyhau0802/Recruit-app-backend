@@ -9,6 +9,7 @@ const router = require("express").Router();
 router.get("/", controllers.getJobs);
 router.get("/list/:user_id", controllers.getJobByUserId);
 router.get("/:id", controllers.getJobById);
+router.get("/getbyemployerid/:id", controllers.getJobByEmployerId);
 router.post("/", controllers.createNewJob);
 router.put("/:id", controllers.updateJob);
 router.delete("/:id", controllers.deleteJob);

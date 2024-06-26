@@ -29,6 +29,16 @@ export const getJobByUserId = async (req, res) => {
   }
 };
 
+export const getJobByEmployerId = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const response = await services.getJobByEmployerId(id);
+    return res.status(200).json(response);
+  } catch (error) {
+    return res.status(500).json(error);
+  }
+};
+
 export const createNewJob = async (req, res) => {
   try {
     // check duoi client gui len co cac truong bat buoc ko

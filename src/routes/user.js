@@ -5,17 +5,14 @@ import uploadCloud from "../middlewares/uploadCloud";
 
 const router = require("express").Router();
 
-// PUBLIC ROUTES
-// router.post("/", uploadCloud.single("avatar"), controllers.createNewUser);
-
-router.get("/", controllers.getAllUser);
+// LOGIN ROUTES
+router.use(verifyToken);
 router.get("/:id", controllers.getUserById);
 router.put("/", uploadCloud.single("avatar"), controllers.updateAvatar);
 router.put("/:id", controllers.updateUser);
-router.delete("/:id", controllers.deleteUser);
-// PRIVATE ROUTES
-router.use(verifyToken);
+// ADMIN ROUTES
 router.use(isAdmin);
-// router.use(isEmployerOrAdmin);
+router.get("/", controllers.getAllUser);
+router.delete("/:id", controllers.deleteUser);
 
 module.exports = router;

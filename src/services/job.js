@@ -10,13 +10,6 @@ export const getJobs = ({ page, limit, order, name, ...query }) =>
       // vi tri - offset : offset = 8 skip 8 cai dau tien
       const offset = !page || +page <= 1 ? 0 : +page - 1;
       const flimit = +limit || +process.env.LIMIT_JOB;
-      // const offset = 0;
-      // const flimit = 10;
-      // limit : so luong ban ghi tren mot trang
-
-      const startIndex = (+page - 1) * flimit;
-      const endIndex = +page * flimit;
-
       queries.offset = offset * flimit;
       queries.limit = flimit;
       if (order) queries.order = [order];
@@ -157,6 +150,65 @@ export const getJobByUserId = (user_id) =>
     }
   });
 
+export const getJobByEmployerId = (id) =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const queries = { raw: true, nest: true };
+      queries.limit = 6;
+      queries.offset = 0;
+      const response = await db.Job.findAll({
+        where: { id_employer: id },
+        order: [["id", "ASC"]],
+        limit: 6,
+        offset: 0,
+        attributes: {
+          exclude: [
+            "job_type_code",
+            "salary_code",
+            "province_cong_viec",
+            "job_field_code",
+            "degree_code",
+            "id_employer",
+          ],
+        },
+        include: [
+          {
+            model: db.Job_type,
+            attributes: ["code", "value"],
+            as: "jobTypeData",
+          },
+          {
+            model: db.Salary,
+            attributes: ["code", "value"],
+            as: "salaryData",
+          },
+          {
+            model: db.Province,
+            attributes: ["code", "value"],
+            as: "provinceData",
+          },
+          {
+            model: db.Job_field,
+            attributes: ["code", "value"],
+            as: "jobFieldData",
+          },
+          {
+            model: db.Degree,
+            attributes: ["code", "value"],
+            as: "degreeData",
+          },
+          {
+            model: db.Employer,
+            // attributes: { exclude: ["user_id"] },
+            as: "employerData",
+          },
+        ],
+      });
+      resolve(response);
+    } catch (error) {
+      reject(error);
+    }
+  });
 // CREATE
 export const createNewJob = (body) =>
   new Promise(async (resolve, reject) => {

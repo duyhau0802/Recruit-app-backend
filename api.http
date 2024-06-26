@@ -37,6 +37,8 @@ GET http://localhost:8800/api/job/?order[]=id&order[]=DESC&limit=2&page=2
 ### get job by order date create 
 GET http://localhost:8800/api/job/?order[]=createdAt&order[]=DESC
 
+### Search 
+GET http://localhost:8800/api/job/?name=marketing&province_cong_viec=DN&salary_code=1-3
 
 ### pagination 
 GET http://localhost:8800/api/job/?page=2

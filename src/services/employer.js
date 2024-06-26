@@ -41,6 +41,36 @@ export const getAllEmployer = async () => {
   }
 };
 
+export const getEmployerById = async (id) => {
+  try {
+    const response = await db.Employer.findOne({
+      where: { id: id },
+      attributes: {
+        exclude: ["province_code", "job_fields_code", "user_id"],
+      },
+      include: [
+        {
+          model: db.User,
+          as: "userData",
+        },
+        {
+          model: db.Job_field,
+          attributes: ["code", "value"],
+          as: "jobFieldData",
+        },
+        {
+          model: db.Province,
+          attributes: ["code", "value"],
+          as: "provinceData",
+        },
+      ],
+    });
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
+
 export const getEmployerByUserId = async (user_id) => {
   try {
     const response = await db.Employer.findOne({

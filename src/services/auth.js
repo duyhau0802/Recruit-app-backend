@@ -186,7 +186,7 @@ export const login = ({ email, password }) =>
               role_code: response.role_code,
             },
             process.env.ACCESS_TOKEN_SECRET,
-            { expiresIn: "600s" }
+            { expiresIn: "1d" }
           )
         : null;
       const refreshToken = isChecked
@@ -198,6 +198,7 @@ export const login = ({ email, password }) =>
             { expiresIn: "10d" }
           )
         : null;
+
       resolve({
         err: accessToken ? 0 : 1,
         mes: accessToken
@@ -205,16 +206,11 @@ export const login = ({ email, password }) =>
           : response
           ? "Password is wrong"
           : "Email is not registered",
-        username: response.username,
-        userId: response.id,
-        role_code: response.role_code,
+        username: accessToken ? response.username : null,
+        userId: accessToken ? response.id : null,
+        role_code: accessToken ? response.role_code : null,
         access_token: accessToken ? `Bearer ${accessToken}` : null,
         refresh_token: refreshToken ? `${refreshToken}` : null,
-      });
-
-      resolve({
-        err: 0,
-        mes: "login service",
       });
       if (refreshToken) {
         await db.User.update(

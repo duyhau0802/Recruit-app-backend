@@ -7,6 +7,7 @@ const router = require("express").Router();
 router.post("/", controllers.createEmployer);
 router.get("/", controllers.getAllEmployer);
 router.get("/:id", controllers.getEmployerByUserId);
+router.get("/getbyid/:id", controllers.getEmployerById);
 router.put("/:id", controllers.updateEmployer);
 router.put(
   "/update-logo-cong-ty/:id",

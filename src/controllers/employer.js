@@ -10,6 +10,16 @@ export const getAllEmployer = async (req, res) => {
   }
 };
 
+export const getEmployerById = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const response = await services.getEmployerById(id);
+    return res.status(200).json(response);
+  } catch (error) {
+    return res.status(500).json(error);
+  }
+};
+
 export const getEmployerByUserId = async (req, res) => {
   try {
     const id = req.params.id;
@@ -44,9 +54,9 @@ export const updateLogoCongTy = async (req, res) => {
   try {
     let user_id = req.params.id;
     let fileData = req.file;
-    const response = await services.updateLogoCongTy( user_id, fileData);
+    const response = await services.updateLogoCongTy(user_id, fileData);
     return res.status(200).json(response);
   } catch (error) {
     return res.status(500).json(error);
   }
-}
+};
