@@ -24,16 +24,16 @@ export const getUserById = async (id) => {
   }
 };
 
-export const getApplicantById = async (id) => {
-  try {
-    const response = await db.Applicant.findOne({
-      where: { user_id: id },
-    });
-    return response;
-  } catch (error) {
-    return error;
-  }
-};
+// export const getApplicantById = async (id) => {
+//   try {
+//     const response = await db.Applicant.findOne({
+//       where: { user_id: id },
+//     });
+//     return response;
+//   } catch (error) {
+//     return error;
+//   }
+// };
 
 export const updateAvatar = async (body, fileData) =>
   new Promise(async (resolve, reject) => {

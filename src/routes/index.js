@@ -10,6 +10,7 @@ import province from "./province";
 import applicant from "./applicant";
 import application from "./application";
 import employer from "./employer";
+import saved_job from "./saved-job";
 import { notFound } from "../middlewares/handle_errors";
 
 const initRoutes = (app) => {
@@ -26,6 +27,7 @@ const initRoutes = (app) => {
   app.use("/api/applicant", applicant);
   app.use("/api/employer", employer);
   app.use("/api/application", application);
+  app.use("/api/saved-job", saved_job);
 
   app.use(notFound);
 };

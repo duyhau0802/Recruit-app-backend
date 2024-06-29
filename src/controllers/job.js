@@ -21,8 +21,8 @@ export const getJobById = async (req, res) => {
 
 export const getJobByUserId = async (req, res) => {
   try {
-    const user_id = req.params.user_id;
-    const response = await services.getJobByUserId(user_id);
+    // const user_id = req.params.user_id;
+    const response = await services.getJobByUserId(req.query);
     return res.status(200).json(response);
   } catch (error) {
     return res.status(500).json(error);
@@ -43,11 +43,11 @@ export const createNewJob = async (req, res) => {
   try {
     // check duoi client gui len co cac truong bat buoc ko
     // check deadline o duoi client
-
-    const response = await services.createNewJob(req.body);
+    const id = req.params.id;
+    const response = await services.createNewJob(req.body, id);
     return res.status(200).json(response);
   } catch (error) {
-    return res.send(error);
+    return res.status(500).json(error);
   }
 };
 

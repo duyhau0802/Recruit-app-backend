@@ -1,5 +1,6 @@
 import { id_employer } from "../helper/joi_schema";
 import db from "../models";
+import sendEmail from "../utils/sendEmail";
 
 export const createApplication = (body) =>
   new Promise(async (resolve, reject) => {
@@ -29,6 +30,22 @@ export const createApplication = (body) =>
           id_resume,
         });
         resolve(response);
+        const employer = await db.Employer.findOne({
+          where: { id: id_employer },
+          include: [
+            {
+              model: db.User,
+              as: "userData",
+            },
+          ],
+        });
+        const employerEmail = employer.userData.email;
+        const link = `Link ứng viên : ${process.env.CLIENT_URL}/applicant/${id_ung_vien} ; Link tin tuyển dụng : ${process.env.CLIENT_URL}/job/${id_tin}`;
+        await sendEmail(
+          employerEmail,
+          "Có 1 ứng viên vừa ứng tuyển vào tin của bạn",
+          link
+        );
       }
     } catch (error) {
       reject(error);
@@ -92,7 +109,7 @@ export const getApplicationByEmployerId = async (user_id) => {
     const response = await db.Application.findAll({
       where: { id_employer },
       attributes: {
-        exclude: ["id_ung_vien", "id_tin", "id_employer", "id_resume"],
+        exclude: ["id_employer", "id_resume"],
       },
       include: [
         {
@@ -132,9 +149,32 @@ export const getApplicationByEmployerId = async (user_id) => {
 
 export const updateApplication = async (body, id) => {
   try {
-    const response = await db.Application.update(body, {
+    const [affectedRows] = await db.Application.update(body, {
       where: { id: id },
     });
+    if (affectedRows > 0) {
+      const application = await db.Application.findOne({
+        where: { id },
+      });
+      const id_ung_vien = application.id_ung_vien;
+      const id_tin = application.id_tin;
+      const applicant = await db.Applicant.findOne({
+        where: { id: id_ung_vien },
+        include: [
+          {
+            model: db.User,
+            as: "userData",
+          },
+        ],
+      });
+      const applicantEmail = applicant.userData.email;
+      const link = `Link tin tuyển dụng : ${process.env.CLIENT_URL}/job/${id_tin}`;
+      await sendEmail(
+        applicantEmail,
+        "Nhà tuyển dụng đã thay đổi trạng thái ứng tuyển của bạn",
+        link
+      );
+    }
     return response;
   } catch (error) {
     return error;

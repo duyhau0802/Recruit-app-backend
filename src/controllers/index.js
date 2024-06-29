@@ -10,3 +10,4 @@ export * from "./salary.js";
 export * from "./applicant.js";
 export * from "./application.js";
 export * from "./employer.js";
+export * from "./saved_job.js";

@@ -134,17 +134,75 @@ export const getJobById = async (id) => {
   }
 };
 
-export const getJobByUserId = (user_id) =>
+export const getJobByUserId = ({ page, limit, order, user_id }) =>
   new Promise(async (resolve, reject) => {
     try {
       const employer = await db.Employer.findOne({
         where: { user_id: user_id },
       });
       const employer_id = employer.id;
-      const response = await db.Job.findAll({
+      const queries = { raw: true, nest: true };
+      // vi tri - offset : offset = 8 skip 8 cai dau tien
+      const offset = !page || +page <= 1 ? 0 : +page - 1;
+      const flimit = +limit || +process.env.LIMIT_JOB;
+      queries.offset = offset * flimit;
+      queries.limit = flimit;
+      if (order) queries.order = [order];
+      const response = await db.Job.findAndCountAll({
         where: { id_employer: employer_id },
+        ...queries,
+        attributes: {
+          exclude: [
+            "job_type_code",
+            "salary_code",
+            "province_cong_viec",
+            "job_field_code",
+            "degree_code",
+            "id_employer",
+          ],
+        },
+        include: [
+          {
+            model: db.Job_type,
+            attributes: ["code", "value"],
+            as: "jobTypeData",
+          },
+          {
+            model: db.Salary,
+            attributes: ["code", "value"],
+            as: "salaryData",
+          },
+          {
+            model: db.Province,
+            attributes: ["code", "value"],
+            as: "provinceData",
+          },
+          {
+            model: db.Job_field,
+            attributes: ["code", "value"],
+            as: "jobFieldData",
+          },
+          {
+            model: db.Degree,
+            attributes: ["code", "value"],
+            as: "degreeData",
+          },
+          {
+            model: db.Employer,
+            // attributes: { exclude: ["user_id"] },
+            as: "employerData",
+          },
+        ],
       });
-      resolve(response);
+      resolve({
+        page: page,
+        per_page: flimit,
+        total: response.count,
+        total_pages: Math.ceil(response.count / flimit),
+        err: response ? 0 : 1,
+        mes: response ? "Got data" : "Can not found job",
+        jobData: response,
+      });
     } catch (error) {
       reject(error);
     }
@@ -210,21 +268,19 @@ export const getJobByEmployerId = (id) =>
     }
   });
 // CREATE
-export const createNewJob = (body) =>
+export const createNewJob = (body, id_user) =>
   new Promise(async (resolve, reject) => {
     try {
-      const id_user = body?.id_user;
       const employer = await db.Employer.findOne({
         where: { user_id: id_user },
       });
       const id_employer = employer?.id;
-      // neu tim thay job có vi_tri giống hệt vi_tri đẫ có thì thôi >>
+
       const response = await db.Job.findOrCreate({
         where: { vi_tri: body?.vi_tri, id_employer: id_employer },
         defaults: {
-          ...body, // Spread operator to include all properties from body
+          ...body,
           id_employer: id_employer,
-          id_user: undefined, // Explicitly set id_employer to undefined to exclude it},
         },
       });
       resolve({

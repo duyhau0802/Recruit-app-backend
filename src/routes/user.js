@@ -11,7 +11,7 @@ router.get("/:id", controllers.getUserById);
 router.put("/", uploadCloud.single("avatar"), controllers.updateAvatar);
 router.put("/:id", controllers.updateUser);
 // ADMIN ROUTES
-router.use(isAdmin);
+// router.use(isAdmin);
 router.get("/", controllers.getAllUser);
 router.delete("/:id", controllers.deleteUser);
 

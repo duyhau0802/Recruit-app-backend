@@ -1,7 +1,7 @@
 "use strict";
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
-  class Save_job extends Model {
+  class Saved_job extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -9,29 +9,28 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Save_job.belongsTo(models.Applicant, {
+      Saved_job.belongsTo(models.Applicant, {
         foreignKey: "id_ung_vien",
         targetKey: "id",
         as: "ungVienData",
       });
-      Save_job.belongsTo(models.Job, {
+      Saved_job.belongsTo(models.Job, {
         foreignKey: "id_tin",
         targetKey: "id",
         as: "jobData",
       });
     }
   }
-  Save_job.init(
+  Saved_job.init(
     {
       id_ung_vien: DataTypes.STRING,
       id_tin: DataTypes.STRING,
-      createAt: DataTypes.DATE,
     },
     {
       sequelize,
-      modelName: "Save_job",
+      modelName: "Saved_job",
       updatedAt: false,
     }
   );
-  return Save_job;
+  return Saved_job;
 };

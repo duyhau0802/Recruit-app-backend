@@ -149,8 +149,8 @@ export const registerEmployer = ({
           user_id: user_id,
         });
         resolve({
-          err: response[1] ? 0 : 1,
-          mes: response[1] ? "Register successfully" : "Email already exists",
+          err: 0,
+          mes: "Register successfully",
           username: response[0].username,
           user_id: response[0].id,
           employer: responseEmployer,

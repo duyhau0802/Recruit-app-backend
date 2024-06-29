@@ -7,10 +7,9 @@ export const isAdmin = (req, res, next) => {
 };
 
 export const isEmployerOrAdmin = (req, res, next) => {
-  const { role_code } = req.user;
-  if (role_code !== "R1" && req.user.role !== "R2")
-    return notAuth("Required role employer or admin", res);
-  next();
+  const role_code = req.user.role_code;
+  if (role_code === "R1" || req.user.role === "R2") next();
+  return notAuth("Required role employer or admin", res);
 };
 
 export const isApplicant = (req, res, next) => {
@@ -22,5 +21,5 @@ export const isApplicant = (req, res, next) => {
 export const isEmployer = (req, res, next) => {
   const { role_code } = req.user;
   if (role_code === "R2") next();
-  return notAuth("Required role employer or admin", res);
+  return notAuth("Required role employer", res);
 };

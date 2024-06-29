@@ -20,6 +20,16 @@ export const getApplicantByUserId = async (req, res) => {
   }
 };
 
+export const getApplicantById = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const response = await services.getApplicantById(id);
+    return res.status(200).json(response);
+  } catch (error) {
+    return res.status(500).json(error);
+  }
+};
+
 export const createApplicant = async (req, res) => {
   try {
     const id = req.params.id;

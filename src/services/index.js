@@ -10,3 +10,4 @@ export * from "./salary";
 export * from "./applicant";
 export * from "./application";
 export * from "./employer";
+export * from "./saved-job";

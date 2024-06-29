@@ -25,6 +25,56 @@ export const getAllApplicant = async () => {
   }
 };
 
+export const getApplicantById = async (id) => {
+  try {
+    const response = await db.Applicant.findOne({
+      where: { id: id },
+      attributes: {
+        exclude: ["province_code", "user_id", "bang_cap_code"],
+      },
+      include: [
+        {
+          model: db.User,
+          as: "userData",
+        },
+        {
+          model: db.Degree,
+          attributes: ["code", "value"],
+          as: "degreeData",
+        },
+        {
+          model: db.Job_field,
+          attributes: ["code", "value"],
+          as: "jobFieldData",
+        },
+        {
+          model: db.Job_type,
+          attributes: ["code", "value"],
+          as: "jobTypeData",
+        },
+        {
+          model: db.Salary,
+          attributes: ["code", "value"],
+          as: "salaryData",
+        },
+        {
+          model: db.Province,
+          attributes: ["code", "value"],
+          as: "currentProvinceData",
+        },
+        {
+          model: db.Province,
+          attributes: ["code", "value"],
+          as: "desiredProvinceData",
+        },
+      ],
+    });
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
+
 export const getApplicantByUserId = async (user_id) => {
   try {
     const response = await db.Applicant.findOne({
